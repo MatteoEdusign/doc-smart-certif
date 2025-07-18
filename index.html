@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Documentation — Connecteur Smart Certificate pour Edusign</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/png" href="assets/edu.png" />
+    <style>
+      /* --- EDUSIGN BRAND PALETTE --- */
+      :root {
+        --edusign-blue-green: #1c414d;
+        --edusign-yellow: #ffd78b;
+        --edusign-green: #b1e1b9;
+        --text-primary: #1c414d;
+        --text-secondary: #5a7077;
+        --background-light: #efe7dd;
+        --background-white: #ffffff;
+        --border-light: #eef1f2;
+        --header-color: hsl(33, 36%, 90%);
+      }
+
+      /* --- ANIMATIONS --- */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .animate-on-load {
+        animation: fadeInUp 0.7s ease-out forwards;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Inter', sans-serif;
+        line-height: 1.7;
+        color: var(--text-secondary);
+        background-color: var(--background-white);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      /* --- HEADER / BANNIÈRE (Pleine largeur) --- */
+      .header {
+        background-color: var(--edusign-blue-green);
+        color: var(--header-color);
+        text-align: center;
+        padding: 64px 24px;
+        margin-bottom: 56px;
+      }
+
+      .header h1 {
+        color: var(--header-color);
+        font-size: 2.5rem;
+        font-weight: 700;
+        line-height: 1.2;
+        margin: 0 auto 8px;
+        max-width: 880px;
+        opacity: 0;
+        animation: fadeInUp 0.5s 0.2s ease-out forwards;
+      }
+      .header .subtitle {
+        color: hsla(33, 36%, 90%, 0.85);
+        font-size: 1.25rem;
+        font-weight: 500;
+        opacity: 0;
+        animation: fadeInUp 0.5s 0.4s ease-out forwards;
+        text-align: center;
+        display: block;
+        width: 100%;
+      }
+
+      /* --- Conteneur principal pour le contenu (centré et largeur fixe) --- */
+      .content-wrapper {
+        max-width: 880px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      /* --- TYPOGRAPHIE & STRUCTURE --- */
+      h1,
+      h2,
+      h3 {
+        font-family: 'Inter', sans-serif; /* Police plus standard pour les titres de doc */
+      }
+
+      h2 {
+        color: var(--text-primary);
+        font-size: 1.75rem;
+        font-weight: 700;
+        margin-top: 48px;
+        margin-bottom: 24px;
+        position: relative;
+        padding-bottom: 12px;
+      }
+      h2::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 4px;
+        background-color: var(--edusign-yellow);
+        border-radius: 2px;
+      }
+
+      h3 {
+        color: var(--text-primary);
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-top: 24px;
+        margin-bottom: 16px;
+      }
+
+      p, li {
+        margin-bottom: 16px;
+        text-align: justify;
+        font-family: 'Inter', sans-serif;
+      }
+
+      strong {
+        color: var(--text-primary);
+        font-weight: 600;
+      }
+      
+      code {
+        background-color: #f0f0f0;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: monospace;
+        color: #c7254e;
+      }
+
+      /* --- SECTIONS SPÉCIFIQUES --- */
+      .intro-section {
+        background-color: var(--background-light);
+        padding: 32px;
+        border-radius: 12px;
+        margin-bottom: 40px;
+        opacity: 0;
+      }
+      .intro-section h2 {
+        margin-top: 0;
+      }
+      main {
+        opacity: 0;
+        animation-delay: 0.8s;
+      }
+
+      .content-section ul {
+        list-style: disc;
+        padding-left: 20px;
+      }
+      .content-section li {
+        margin-bottom: 12px;
+        padding-left: 8px;
+      }
+
+      /* --- BOÎTE À OUTILS (Checklist) --- */
+      .checklist-box {
+        background-color: var(--background-light);
+        padding: 40px;
+        border-radius: 12px;
+        margin: 56px 0;
+        border: 1px solid var(--border-light);
+        opacity: 0;
+        animation-delay: 0.9s;
+      }
+      .checklist-box h2,
+      .checklist-box h3 {
+        text-align: center;
+        margin-top: 0;
+      }
+      .checklist-box h2::after {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .checklist-box ol {
+        list-style: none;
+        padding: 0;
+        margin-top: 32px;
+      }
+      .checklist-box li {
+        background: var(--background-white);
+        border-radius: 8px;
+        padding: 24px;
+        margin-bottom: 16px;
+        border: 1px solid var(--border-light);
+        box-shadow: 0 2px 8px rgba(28, 65, 77, 0.05);
+      }
+      .checklist-box li strong {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 1.1rem;
+      }
+
+      /* --- FAQ --- */
+      .faq-section {
+        margin: 56px 0;
+        opacity: 0;
+        animation-delay: 1s;
+      }
+      .faq-section h2 {
+        text-align: center;
+      }
+      .faq-section h2::after {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .faq-item {
+        margin-bottom: 16px;
+        border: 1px solid var(--border-light);
+        border-radius: 8px;
+        padding: 24px;
+        background: var(--background-white);
+      }
+      .faq-question {
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 12px;
+        font-size: 1.1rem;
+      }
+
+      /* --- CONCLUSION & SIGNATURE (FOOTER - Pleine largeur) --- */
+      .conclusion-section {
+        background-color: var(--edusign-blue-green);
+        color: var(--header-color);
+        padding: 64px 24px;
+        margin-top: 56px;
+        text-align: center;
+        opacity: 0;
+        animation-delay: 1.1s;
+      }
+      .conclusion-section h2 {
+        color: var(--header-color);
+        text-align: center;
+      }
+      .conclusion-section h2::after {
+        background-color: var(--edusign-yellow);
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .conclusion-section p {
+        font-size: 1.1rem;
+        color: hsla(33, 36%, 90%, 0.9);
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 32px;
+        text-align: center;
+      }
+
+      /* --- MEDIA QUERIES POUR RESPONSIVE --- */
+      @media (max-width: 768px) {
+        .header {
+          padding: 48px 16px;
+          margin-bottom: 40px;
+        }
+        .header h1 {
+          font-size: 2rem;
+        }
+        .header .subtitle {
+          font-size: 1.1rem;
+        }
+        .content-wrapper {
+          padding: 0 16px;
+        }
+        h2 {
+          font-size: 1.5rem;
+        }
+        .checklist-box,
+        .conclusion-section {
+          padding: 32px 24px;
+        }
+        .conclusion-section {
+          margin-top: 40px;
+        }
+      }
+
+      /* Logo */
+      .logo-edusign {
+        display: block;
+        margin: 0 auto 40px;
+        max-width: 200px; /* Ajusté pour être un peu plus discret */
+        height: auto;
+        animation: fadeInUp 0.5s ease-out forwards;
+      }
+      /* Edusign yellow text utility */
+      .edusign-yellow {
+        color: var(--edusign-yellow) !important;
+      }
+    </style>
+  </head>
+  <body>
+
+    <header class="header">
+      <img src="assets/logo.png" alt="Logo Edusign" class="logo-edusign" loading="lazy" />
+      <h1>Connecteur Smart Certificate pour Edusign</h1>
+      <p class="subtitle">Le guide complet pour l'installation, la configuration et l'utilisation.</p>
+    </header>
+
+    <div class="content-wrapper">
+      <section class="intro-section animate-on-load" style="animation-delay: 0.6s">
+        <h2>Automatisez la distribution de vos diplômes</h2>
+        <p>
+          Le Connecteur Smart Certificate est la solution indispensable pour les établissements qui utilisent à la fois Edusign et Smart Certificate. Cette application crée un pont intelligent entre les deux plateformes pour <strong>automatiser entièrement la distribution et l'archivage</strong> de vos certifications numériques.
+        </p>
+        <p>
+          L'objectif est simple : vous faire gagner un temps précieux, éliminer les erreurs manuelles et centraliser tous les documents importants au sein de l'écosystème Edusign que vos étudiants et vos équipes utilisent au quotidien.
+        </p>
+      </section>
+
+      <main class="animate-on-load" style="animation-delay: 0.8s">
+        <section class="content-section">
+          <h2>Prérequis</h2>
+          <p>Avant d'installer l'application, assurez-vous d'avoir les informations suivantes à portée de main :</p>
+          <ul>
+            <li>Les identifiants d'un compte administrateur sur votre plateforme <strong>Smart Certificate</strong> (Email et Mot de passe).</li>
+            <li>L'ID numérique du ou des programmes Smart Certificate que vous souhaitez synchroniser.</li>
+            <li>Un compte administrateur Edusign pour pouvoir installer et configurer l'application depuis le Marketplace.</li>
+          </ul>
+        </section>
+
+        <section class="content-section">
+          <h2>Fonctionnement détaillé</h2>
+           <p>Une fois installée, l'application est entièrement autonome. Voici comment elle fonctionne en arrière-plan :</p>
+          <ul>
+            <li>
+              <strong>Synchronisation Nocturne :</strong> Chaque nuit, le connecteur s'active automatiquement pour scanner les programmes que vous avez configurés sur Smart Certificate.
+            </li>
+            <li>
+              <strong>Détection et Ajout :</strong> S'il détecte de nouveaux certificats émis, il les récupère et les ajoute en pièce jointe au profil de l'étudiant correspondant (recherché par e-mail) dans Edusign.
+            </li>
+            <li>
+              <strong>Gestion Intelligente des Comptes Non Activés :</strong> Si un étudiant n'a pas encore activé son compte Smart Certificate, l'application ne se bloque pas. Elle attachera un lien direct vers la page de vérification publique du certificat. Ce lien sera <strong>automatiquement remplacé par le fichier PDF final</strong> lors d'une synchronisation future, dès que l'étudiant aura activé son compte.
+            </li>
+             <li>
+              <strong>Robustesse :</strong> Le connecteur est conçu pour gérer les erreurs réseau et les lenteurs passagères des API en réessayant automatiquement plusieurs fois avant de signaler une erreur.
+            </li>
+          </ul>
+        </section>
+      </main>
+
+      <section class="checklist-box animate-on-load" style="animation-delay: 0.9s">
+        <h2>Guide de Configuration</h2>
+        <h3>Les 3 paramètres à renseigner lors de l'installation</h3>
+        <ol>
+          <li>
+            <strong>Email Smart Certificate</strong>
+            <p>L'adresse e-mail de votre compte administrateur Smart Certificate. L'application utilisera cet identifiant pour se connecter de manière sécurisée à l'API de Smart Certificate. Exemple : <code>admin@votre-ecole.fr</code></p>
+          </li>
+          <li>
+            <strong>Mot de passe Smart Certificate</strong>
+             <p>Le mot de passe associé à votre compte administrateur Smart Certificate. Il est stocké de manière chiffrée et sécurisée via le système de secrets d'Edusign.</p>
+          </li>
+          <li>
+            <strong>IDs des programmes à synchroniser</strong>
+            <p>La liste des identifiants numériques des programmes Smart Certificate que l'application doit surveiller. Pour trouver cet ID, connectez-vous à Smart Certificate et naviguez jusqu'à la page du programme. L'ID se trouve dans l'URL (par exemple, dans `.../group/11858/...`, l'ID est `11858`).</p>
+            <p>Si vous souhaitez synchroniser plusieurs programmes, séparez simplement les IDs par une <strong>virgule</strong>. Exemple : <code>11858,11859,11900</code></p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="faq-section animate-on-load" style="animation-delay: 1s">
+        <h2>Questions Fréquentes (FAQ)</h2>
+        <div class="faq-item">
+          <p class="faq-question">
+            Que se passe-t-il exactement si un étudiant n'active pas son compte Smart Certificate ?
+          </p>
+          <div class="faq-answer">
+            L'application ajoutera une pièce jointe de type "lien" à son profil Edusign. Ce lien pointe vers la page publique de son certificat. Il aura donc immédiatement accès à une preuve de sa certification. Dès qu'il activera son compte, le script remplacera ce lien par le fichier PDF officiel lors de la synchronisation suivante.
+          </div>
+        </div>
+        <div class="faq-item">
+          <p class="faq-question">Le script traite-t-il les certificats qui ont été créés avant l'installation de l'application ?</p>
+          <div class="faq-answer">
+            Oui. Lors de sa toute première exécution, le script scannera l'intégralité des certificats présents dans les programmes configurés et synchronisera tous ceux qui ne sont pas déjà traités.
+          </div>
+        </div>
+        <div class="faq-item">
+          <p class="faq-question">À quelle fréquence la synchronisation a-t-elle lieu ?</p>
+          <div class="faq-answer">
+            La synchronisation est programmée pour s'exécuter automatiquement une fois par nuit, afin de ne pas impacter les performances des plateformes pendant les heures de travail.
+          </div>
+        </div>
+         <div class="faq-item">
+          <p class="faq-question">Mes identifiants Smart Certificate sont-ils en sécurité ?</p>
+          <div class="faq-answer">
+            Oui. Vos identifiants sont transmis de manière sécurisée et stockés en utilisant le gestionnaire de secrets de la plateforme Edusign, conformément aux meilleures pratiques de sécurité. Ils ne sont jamais exposés en clair.
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer class="conclusion-section animate-on-load" style="animation-delay: 1.1s">
+      <h2>Support</h2>
+      <p>
+        Pour toute question ou en cas de problème avec l'application, veuillez contacter notre équipe de support à l'adresse suivante : <strong class="edusign-yellow">matteo@edusign.fr</strong>
+      </p>
+    </footer>
+  </body>
+</html>
